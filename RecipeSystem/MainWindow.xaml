@@ -1,0 +1,66 @@
+﻿<Window x:Class="RecipeSystem.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RecipeSystem"
+		xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+	<Window.DataContext>
+		<local:FileSystemViewModel/>
+	</Window.DataContext>
+	<Window.Resources>
+		<Style TargetType="{x:Type TabItem}">
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="{x:Type TabItem}">
+						<Border Name="Border" BorderThickness="1,1,1,0" BorderBrush="Gainsboro" CornerRadius="4,4,0,0" Margin="2,0">
+							<ContentPresenter x:Name="ContentSite"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        ContentSource="Header"
+                                        Margin="10,2"/>
+						</Border>
+						<ControlTemplate.Triggers>
+							<Trigger Property="IsSelected" Value="True">
+								<Setter TargetName="Border" Property="Background" Value="LightSkyBlue" />
+							</Trigger>
+							<Trigger Property="IsSelected" Value="False">
+								<Setter TargetName="Border" Property="Background" Value="GhostWhite" />
+							</Trigger>
+						</ControlTemplate.Triggers>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+	</Window.Resources>
+	
+	<Grid>
+		<TabControl Margin="10" BorderBrush="Gainsboro">
+			<TabItem Header="Current">
+				<toolkit:PropertyGrid SelectedObject="{Binding CurrentFile}"/>
+			</TabItem>
+			
+			<TabItem Header="System">
+				<DockPanel>
+					<DataGrid DockPanel.Dock="Left" x:Name="FilesGrid" local:DataGridHeaderHelper.ItemType="{x:Type local:SettingFileBase}"
+							  ItemsSource="{Binding Records}" IsSynchronizedWithCurrentItem="True"  SelectedItem="{Binding SelectedFile, Mode=OneWayToSource}"/>
+					
+					<toolkit:PropertyGrid DockPanel.Dock="Right"  IsReadOnly="True"
+										  SelectedObject="{Binding ElementName=FilesGrid, Path=SelectedItem}"/>
+					
+					<StackPanel VerticalAlignment="Center">
+						<Button Content="Refresh" Command="{Binding RefreshCommand}"/>
+						<Button Content="Load" Command="{Binding LoadCommand}"/>
+						<Button Content="Save Current" Command="{Binding SaveCommand}"/>
+						<Button Content="Save As" Command="{Binding SaveAsCommand}"/>
+						<Button Content="Delete" Command="{Binding DeleteCommand}"/>
+					</StackPanel>
+				</DockPanel>
+
+			</TabItem>
+
+		</TabControl>
+	</Grid>
+</Window>
