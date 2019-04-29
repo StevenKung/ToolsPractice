@@ -48,10 +48,10 @@ namespace RecipeSystem
 
 			RefreshFiles();
 			RefreshCommand = new RelayCommand(RefreshFiles);
-			LoadCommand = new RelayCommand(LoadSelected);
+			LoadCommand = new RelayCommand(LoadSelected,()=>SelectedFile!=null);
 			SaveCommand = new RelayCommand(Save);
 			SaveAsCommand = new RelayCommand(SaveAs);
-			DeleteCommand = new RelayCommand(DeleteFile);
+			DeleteCommand = new RelayCommand(DeleteFile,()=>SelectedFile!=null);
 		}
 
 		~FileSystemViewModel()

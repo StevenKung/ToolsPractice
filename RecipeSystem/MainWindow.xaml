@@ -44,7 +44,7 @@
 			
 			<TabItem Header="System">
 				<DockPanel>
-					<DataGrid DockPanel.Dock="Left" x:Name="FilesGrid" local:DataGridHeaderHelper.ItemType="{x:Type local:SettingFileBase}"
+					<DataGrid DockPanel.Dock="Left" x:Name="FilesGrid" local:DataGridHeaderHelper.ItemType="{x:Type local:SettingFileBase}" CanUserAddRows="False"
 							  ItemsSource="{Binding Records}" IsSynchronizedWithCurrentItem="True"  SelectedItem="{Binding SelectedFile, Mode=OneWayToSource}"/>
 					
 					<toolkit:PropertyGrid DockPanel.Dock="Right"  IsReadOnly="True"
