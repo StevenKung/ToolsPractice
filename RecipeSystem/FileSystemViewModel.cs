@@ -41,11 +41,14 @@ namespace RecipeSystem
 
 		public FileSystemViewModel()
 		{
-			using (StreamReader reader = new StreamReader(Path.Combine(SettingFileBase.Folder, "Current.txt")))
-			{
-				CurrentFile = new RecipeSetting(reader.ReadLine());
-			}
 
+			Directory.CreateDirectory(SettingFileBase.Folder);
+			string cur = Path.Combine(SettingFileBase.Folder, "Current.txt");
+			if (!File.Exists(cur))
+				File.WriteAllLines(cur, new string[] { "default.xml" });
+			
+			CurrentFile = new RecipeSetting(File.ReadAllLines(cur).First());
+			
 			RefreshFiles();
 			RefreshCommand = new RelayCommand(RefreshFiles);
 			LoadCommand = new RelayCommand(LoadSelected,()=>SelectedFile!=null);
@@ -57,8 +60,7 @@ namespace RecipeSystem
 		~FileSystemViewModel()
 		{
 			CurrentFile.Save();
-			using (StreamWriter writer = new StreamWriter(Path.Combine(SettingFileBase.Folder, "Current.txt")))
-				writer.WriteLine(CurrentFile.FileName);
+			File.WriteAllLines(Path.Combine(SettingFileBase.Folder, "Current.txt"), new string[] { CurrentFile.FileName });
 		}
 
 
