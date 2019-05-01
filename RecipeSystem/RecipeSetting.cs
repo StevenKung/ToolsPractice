@@ -19,6 +19,7 @@ namespace RecipeSystem
 	[Serializable]
 	public class RecipeSetting : SettingFileBase
 	{
+		[ExpandableObject]
 		public double[] Offsets { get; set; } = { 1, 2, 3.5 };
 
 		[Editor(typeof(AdvanceEnumEditor), typeof(AdvanceEnumEditor))]

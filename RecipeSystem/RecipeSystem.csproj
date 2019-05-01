@@ -96,6 +96,7 @@
     <Compile Include="FieldNameAttribute.cs" />
     <Compile Include="FieldToStringConverter.cs" />
     <Compile Include="FileSystemViewModel.cs" />
+    <Compile Include="PropertyGridHelper.cs" />
     <Compile Include="RecipeSetting.cs" />
     <Compile Include="SettingBase.cs" />
     <Compile Include="XmlSaveLoad.cs" />

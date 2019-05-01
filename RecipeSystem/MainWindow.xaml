@@ -39,15 +39,20 @@
 	<Grid>
 		<TabControl Margin="10" BorderBrush="Gainsboro">
 			<TabItem Header="Current">
-				<toolkit:PropertyGrid SelectedObject="{Binding CurrentFile}"/>
+				<StackPanel>
+					<toolkit:PropertyGrid local:PropertyGridHelper.IsReadOnly="{Binding ElementName=ReadOnlyCheckBox, Path=IsChecked}"
+						SelectedObject="{Binding CurrentFile}"/>
+					<CheckBox Content="IsReadOnly" x:Name="ReadOnlyCheckBox" IsChecked="True"/>
+
+				</StackPanel>
 			</TabItem>
 			
 			<TabItem Header="System">
 				<DockPanel>
 					<DataGrid DockPanel.Dock="Left" x:Name="FilesGrid" local:DataGridHeaderHelper.ItemType="{x:Type local:SettingFileBase}" CanUserAddRows="False"
 							  ItemsSource="{Binding Records}" IsSynchronizedWithCurrentItem="True"  SelectedItem="{Binding SelectedFile, Mode=OneWayToSource}"/>
-					
-					<toolkit:PropertyGrid DockPanel.Dock="Right"  IsReadOnly="True"
+
+					<toolkit:PropertyGrid DockPanel.Dock="Right" local:PropertyGridHelper.IsReadOnly="{Binding ElementName=ReadOnlyCheckBox, Path=IsChecked}"
 										  SelectedObject="{Binding ElementName=FilesGrid, Path=SelectedItem}"/>
 					
 					<StackPanel VerticalAlignment="Center">
