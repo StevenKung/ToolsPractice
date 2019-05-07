@@ -34,6 +34,27 @@
 				</Setter.Value>
 			</Setter>
 		</Style>
+
+		<Style TargetType="{x:Type DataGridCell}">
+			<Style.Triggers>
+				<Trigger Property="IsSelected"  Value="True">
+					<Setter Property="Background" Value="DarkSlateBlue"/>
+				</Trigger>
+			</Style.Triggers>
+		</Style>
+		<Style TargetType="{x:Type DataGridRow}">
+			<Style.Triggers>
+				<Trigger Property="AlternationIndex" Value="1">
+					<Setter Property="Background" Value="Gainsboro"/>
+				</Trigger>
+				<!--override trigger by sequence-->
+				<Trigger Property="IsMouseOver" Value="True">
+					<Setter Property="Foreground" Value="Cyan"/>
+				</Trigger>
+			</Style.Triggers>
+		</Style>
+		
+		
 	</Window.Resources>
 	
 	<Grid>
@@ -50,7 +71,8 @@
 			<TabItem Header="System">
 				<DockPanel>
 					<DataGrid DockPanel.Dock="Left" x:Name="FilesGrid" local:DataGridHeaderHelper.ItemType="{x:Type local:SettingFileBase}" CanUserAddRows="False"
-							  ItemsSource="{Binding Records}" IsSynchronizedWithCurrentItem="True"  SelectedItem="{Binding SelectedFile, Mode=OneWayToSource}"/>
+							  ItemsSource="{Binding Records}" IsSynchronizedWithCurrentItem="True"  SelectedItem="{Binding SelectedFile, Mode=OneWayToSource}"
+							  AlternationCount="2"/>
 
 					<toolkit:PropertyGrid DockPanel.Dock="Right" local:PropertyGridHelper.IsReadOnly="{Binding ElementName=ReadOnlyCheckBox, Path=IsChecked}"
 										  SelectedObject="{Binding ElementName=FilesGrid, Path=SelectedItem}"/>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RecipeSetting xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Offsets>
+    <double>1</double>
+    <double>2</double>
+    <double>3.5</double>
+  </Offsets>
+  <Mode>DISABLE</Mode>
+  <Tracking>
+    <Distance>1000</Distance>
+    <IsEnable>false</IsEnable>
+    <Delay>1</Delay>
+  </Tracking>
+</RecipeSetting>
