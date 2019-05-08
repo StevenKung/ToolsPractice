@@ -6,11 +6,6 @@
              xmlns:local="clr-namespace:LogIn"
              mc:Ignorable="d" 
              d:DesignHeight="250" d:DesignWidth="300" Background="GhostWhite">
-	<UserControl.Resources>
-		<Style TargetType="{x:Type Control}">
-			<Setter Property="FontSize" Value="20"/>
-		</Style>
-	</UserControl.Resources>
 	<Grid>
 		<StackPanel Margin="20">
 			<Label Content="Username"/>
