@@ -6,13 +6,20 @@
              xmlns:local="clr-namespace:LogIn"
              mc:Ignorable="d" 
              d:DesignHeight="250" d:DesignWidth="300" Background="GhostWhite">
+	<UserControl.DataContext>
+		<local:LoginViewModel/>
+	</UserControl.DataContext>
+	<UserControl.Resources>
+		<local:UserData x:Key="LoginUser"/>
+	</UserControl.Resources>
 	<Grid>
 		<StackPanel Margin="20">
 			<Label Content="Username"/>
-			<TextBox/>
+			<TextBox Text="{Binding Source={StaticResource LoginUser}, Path=Account}"/>
 			<Label Content="Password"/>
-			<TextBox/>
-			<Button Content="Log in" Background="Green" Margin="0,10"/>
+			<TextBox Text="{Binding Source={StaticResource LoginUser}, Path=Password}"/>
+			<Button Content="Log in" Background="Green" Margin="0,10" 
+					Command="{Binding LoginCommand}" CommandParameter="{Binding Source={StaticResource LoginUser}}"/>
 		</StackPanel>
 
 	</Grid>

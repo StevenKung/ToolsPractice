@@ -7,23 +7,19 @@
              xmlns:local="clr-namespace:LogIn"
              mc:Ignorable="d" 
              d:DesignHeight="250" d:DesignWidth="300" Background="GhostWhite">
-	<UserControl.Resources>
-		<ObjectDataProvider x:Key="dataFromEnum" MethodName="GetValues"
-                            ObjectType="{x:Type System:Enum}">
-			<ObjectDataProvider.MethodParameters>
-				<x:Type TypeName="local:accessLevelEnum"/>
-			</ObjectDataProvider.MethodParameters>
-		</ObjectDataProvider>
-	</UserControl.Resources>
-    <Grid>
+	<UserControl.DataContext>
+		<local:RegisterViewModel/>
+	</UserControl.DataContext>
+	<Grid>
 		<StackPanel Margin="20">
 			<Label Content="Username"/>
-			<TextBox/>
+			<TextBox x:Name="AccountTextBox" Text="{Binding User.Account}"/>
 			<Label Content="Password"/>
-			<TextBox/>
+			<TextBox x:Name="PasswordTextBox" Text="{Binding User.Password}"/>
 			<Label Content="Level"/>
-			<ComboBox ItemsSource="{Binding Source={StaticResource dataFromEnum}}"/>
-			<Button Content="Register" Background="Green" Margin="0,10"/>
+			<ComboBox x:Name="LevelBox" ItemsSource="{Binding User.Level, Mode=OneTime, Converter={local:EnumToCollection}}" 
+					  SelectedValue="{Binding User.Level}"/>
+			<Button Content="Register" Background="Green" Margin="0,10" Command="{Binding RegisterCommand}"/>
 		</StackPanel>
     </Grid>
 </UserControl>

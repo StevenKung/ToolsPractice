@@ -27,8 +27,8 @@ namespace LogIn
 
 		object m_CurrentPage { get; set; }
 		public object CurrentPage => m_CurrentPage;
-		private object LoginPage = new LoginViewModel();
-		private object RegisterPage = new RegisterViewModel();
+		private object LoginPage = new UserControlLogin();
+		private object RegisterPage = new UserControlRegister();
 		public MainViewModel()
 		{
 			m_CurrentPage = LoginPage;

@@ -6,26 +6,18 @@
         xmlns:local="clr-namespace:LogIn"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="300">
-	<Window.Resources>
-		<DataTemplate DataType="{x:Type local:LoginViewModel}">
-			<local:UserControlLogin/>
-		</DataTemplate>
-		<DataTemplate DataType="{x:Type local:RegisterViewModel}">
-			<local:UserControlRegister/>
-		</DataTemplate>
-	</Window.Resources>
-	
+
 	<Window.DataContext>
 		<local:MainViewModel/>
 	</Window.DataContext>
 	
-	<Grid VerticalAlignment="Center">
+	<Grid VerticalAlignment="Top">
 		<StackPanel>
-			<ContentControl Content="{Binding CurrentPage}"/>
-			<StackPanel Orientation ="Horizontal" HorizontalAlignment="Center">
-				<Button Content="Login" Margin="5" Command="{Binding LoginPageCommand}"/>
-				<Button Content="Register" Margin="5" Command="{Binding RegisterPageCommand}"/>
+			<StackPanel Orientation ="Horizontal" HorizontalAlignment="Right">
+				<Button FontSize="10" Content="Login" Margin="5" Command="{Binding LoginPageCommand}"/>
+				<Button FontSize="10" Content="Register" Margin="5" Command="{Binding RegisterPageCommand}"/>
 			</StackPanel>
+			<ContentControl Content="{Binding CurrentPage}"/>
 		</StackPanel>
 	</Grid>
 </Window>
