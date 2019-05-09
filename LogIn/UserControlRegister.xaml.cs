@@ -30,10 +30,10 @@ namespace LogIn
 		{
 			AccountTextBox.Text = string.Empty;
 			PasswordTextBox.Text = string.Empty;
-			LevelBox.SelectedValue = accessLevelEnum.END_USER;
+			LevelBox.SelectedItem = accessLevelEnum.END_USER;
 			BindingOperations.GetBindingExpression(AccountTextBox, TextBox.TextProperty).UpdateSource();
 			BindingOperations.GetBindingExpression(PasswordTextBox, TextBox.TextProperty).UpdateSource();
-			BindingOperations.GetBindingExpression(LevelBox, ComboBox.SelectedValueProperty).UpdateSource();
+			BindingOperations.GetBindingExpression(LevelBox, ComboBox.SelectedItemProperty).UpdateSource();
 		}
 	}
 }

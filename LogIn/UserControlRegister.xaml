@@ -10,6 +10,14 @@
 	<UserControl.DataContext>
 		<local:RegisterViewModel/>
 	</UserControl.DataContext>
+	<UserControl.Resources>
+		<ObjectDataProvider x:Key="dataFromEnum" MethodName="GetValues"
+                            ObjectType="{x:Type System:Enum}">
+			<ObjectDataProvider.MethodParameters>
+				<x:Type TypeName="local:accessLevelEnum"/>
+			</ObjectDataProvider.MethodParameters>
+		</ObjectDataProvider>
+	</UserControl.Resources>
 	<Grid>
 		<StackPanel Margin="20">
 			<Label Content="Username"/>
@@ -17,8 +25,7 @@
 			<Label Content="Password"/>
 			<TextBox x:Name="PasswordTextBox" Text="{Binding User.Password}"/>
 			<Label Content="Level"/>
-			<ComboBox x:Name="LevelBox" ItemsSource="{Binding User.Level, Mode=OneTime, Converter={local:EnumToCollection}}" 
-					  SelectedValue="{Binding User.Level}"/>
+			<ComboBox x:Name="LevelBox" ItemsSource="{Binding Source={StaticResource dataFromEnum}}" SelectedItem="{Binding User.Level}"/>
 			<Button Content="Register" Background="Green" Margin="0,10" Command="{Binding RegisterCommand}"/>
 		</StackPanel>
     </Grid>
