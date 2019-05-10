@@ -20,9 +20,21 @@ namespace LogIn
 	/// </summary>
 	public partial class MainWindow : Window
 	{
+	
+
 		public MainWindow()
 		{
 			InitializeComponent();
+		}
+
+		private void Login_Click(object sender, RoutedEventArgs e)
+		{
+			Presenter.Content = Resources["LoginPage"];
+		}
+
+		private void Register_Click(object sender, RoutedEventArgs e)
+		{
+			Presenter.Content = Resources["RegisterPage"];
 		}
 	}
 }

@@ -6,8 +6,7 @@
 			 xmlns:System ="clr-namespace:System;assembly=mscorlib"
              xmlns:local="clr-namespace:LogIn"
              mc:Ignorable="d" 
-             d:DesignHeight="250" d:DesignWidth="300" Background="GhostWhite" 
-			 DataContext="{Binding Source={StaticResource Locator}, Path=RegisterVM}">
+             d:DesignHeight="250" d:DesignWidth="300" Background="GhostWhite">
 	<UserControl.Resources>
 		<ObjectDataProvider x:Key="dataFromEnum" MethodName="GetValues"
                             ObjectType="{x:Type System:Enum}">
@@ -16,6 +15,9 @@
 			</ObjectDataProvider.MethodParameters>
 		</ObjectDataProvider>
 	</UserControl.Resources>
+	<UserControl.DataContext>
+		<local:RegisterViewModel/>
+	</UserControl.DataContext>
 	<Grid>
 		<StackPanel Margin="20">
 			<Label Content="Username"/>

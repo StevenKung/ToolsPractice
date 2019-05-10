@@ -5,26 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LogIn"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="300"
-		DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
+        Title="MainWindow" Height="350" Width="300">
 	<Window.Resources>
-		<DataTemplate DataType="{x:Type local:LoginViewModel}">
-			<local:UserControlLogin/>
-		</DataTemplate>
-		<DataTemplate DataType="{x:Type local:RegisterViewModel}">
-			<local:UserControlRegister/>
-		</DataTemplate>
+		<local:UserControlLogin x:Key="LoginPage"/>
+		<local:UserControlRegister x:Key="RegisterPage"/>
 	</Window.Resources>
+
+	<Window.DataContext>
+		<local:MainViewModel/>
+	</Window.DataContext>
 	
 	<Grid VerticalAlignment="Top">
 		<StackPanel>
 			<StackPanel Orientation ="Horizontal" HorizontalAlignment="Right">
 				<Button FontSize="10" Content="Logout" Margin="5,5,100,5" Command="{Binding LogoutCommand}"/>
-				<Label FontSize="10" Margin="5" Content="{Binding Source={StaticResource Locator}, Path=LoginVM.CurrentUser}"/>
-				<Button FontSize="10" Content="Login" Margin="5" Command="{Binding LoginPageCommand}"/>
-				<Button FontSize="10" Content="Register" Margin="5" Command="{Binding RegisterPageCommand}"/>
+				<Label FontSize="10" Margin="5" Content="{Binding Source={StaticResource LoginPage}, Path=DataContext.CurrentUser}"/>
+				<Button FontSize="10" Content="Login" Margin="5" Click="Login_Click"/>
+				<Button FontSize="10" Content="Register" Margin="5" Click="Register_Click"/>
 			</StackPanel>
-			<ContentControl Content="{Binding CurrentPage}"/>
+			<ContentControl x:Name="Presenter" Content="{StaticResource LoginPage}"/>
 		</StackPanel>
 	</Grid>
 </Window>

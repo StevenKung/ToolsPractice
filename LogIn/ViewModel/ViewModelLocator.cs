@@ -17,7 +17,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 
 
-namespace LogIn.ViewModels
+namespace LogIn
 {
     /// <summary>
     /// This class contains static references to all the view models in the
@@ -25,10 +25,11 @@ namespace LogIn.ViewModels
     /// </summary>
     public class ViewModelLocator
     {
+		private static ViewModelLocator instance = new ViewModelLocator();
         /// <summary>
         /// Initializes a new instance of the ViewModelLocator class.
         /// </summary>
-        public ViewModelLocator()
+        private ViewModelLocator()
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
@@ -48,15 +49,15 @@ namespace LogIn.ViewModels
 			SimpleIoc.Default.Register<RegisterViewModel>();
         }
 
-        public MainViewModel Main
+        public static MainViewModel Main
         {
             get
             {
                 return ServiceLocator.Current.GetInstance<MainViewModel>();
             }
         }
-		public LoginViewModel LoginVM => ServiceLocator.Current.GetInstance<LoginViewModel>();
-		public RegisterViewModel RegisterVM => ServiceLocator.Current.GetInstance<RegisterViewModel>();
+		public static LoginViewModel LoginVM => ServiceLocator.Current.GetInstance<LoginViewModel>();
+		public static RegisterViewModel RegisterVM => ServiceLocator.Current.GetInstance<RegisterViewModel>();
         
         public static void Cleanup()
         {

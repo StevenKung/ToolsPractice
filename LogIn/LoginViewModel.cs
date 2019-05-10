@@ -12,7 +12,7 @@ namespace LogIn
 {
 	public class LoginViewModel : INotifyPropertyChanged
 	{
-		public UserData m_CurrentUser { get; set; }
+		private UserData m_CurrentUser { get; set; }
 		public UserData CurrentUser => m_CurrentUser;
 		public ICommand LoginCommand { get; set; }
 		public LoginViewModel()

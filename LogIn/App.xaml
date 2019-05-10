@@ -4,7 +4,6 @@
 			<ResourceDictionary.MergedDictionaries>
 				<ResourceDictionary Source="Style.xaml"/>
 			</ResourceDictionary.MergedDictionaries>
-			<vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" xmlns:vm="clr-namespace:LogIn.ViewModels"/>
-    </ResourceDictionary>
+		</ResourceDictionary>
   </Application.Resources>
 </Application>
