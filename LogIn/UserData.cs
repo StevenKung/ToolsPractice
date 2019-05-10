@@ -56,15 +56,7 @@ namespace LogIn
 			doc.Save(path);
 		}
 	}
-
-
-
-
-
-
-
-
-
+	
 	public class UserData
 	{
 		public string Account { get; set; }
@@ -76,6 +68,10 @@ namespace LogIn
 			Account = account;
 			Password = password;
 			Level = level;
+		}
+		public override string ToString()
+		{
+			return Account;
 		}
 	}
 

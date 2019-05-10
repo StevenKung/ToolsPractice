@@ -25,6 +25,7 @@ namespace LogIn
 		}
 		public ICommand LoginPageCommand { get; set; }
 		public ICommand RegisterPageCommand { get; set; }
+		public ICommand LogoutCommand { get; set; }
 
 		object m_CurrentPage { get; set; }
 		public object CurrentPage => m_CurrentPage;
@@ -35,6 +36,7 @@ namespace LogIn
 			m_CurrentPage = LoginPage;
 			LoginPageCommand = new RelayCommand(()=> m_CurrentPage = LoginPage);
 			RegisterPageCommand = new RelayCommand(()=>m_CurrentPage = RegisterPage);
+			LogoutCommand = new RelayCommand(() => (LoginPage as LoginViewModel).Logout());
 
 		}
 	}

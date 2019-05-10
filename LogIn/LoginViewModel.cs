@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -20,7 +21,11 @@ namespace LogIn
 		}
 		private void Login(UserData user)
 		{
-			var m_CurrentUser = AccountManager.GetInstance().Varify(user.Account, user.Password);
+			m_CurrentUser = AccountManager.GetInstance().Varify(user.Account, user.Password);
+		}
+		public void Logout()
+		{
+			m_CurrentUser = null;
 		}
 		public event PropertyChangedEventHandler PropertyChanged;
 	}

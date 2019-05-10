@@ -19,6 +19,8 @@
 	<Grid VerticalAlignment="Top">
 		<StackPanel>
 			<StackPanel Orientation ="Horizontal" HorizontalAlignment="Right">
+				<Button FontSize="10" Content="Logout" Margin="5,5,100,5" Command="{Binding LogoutCommand}"/>
+				<Label FontSize="10" Margin="5" Content="{Binding Source={StaticResource Locator}, Path=LoginVM.CurrentUser}"/>
 				<Button FontSize="10" Content="Login" Margin="5" Command="{Binding LoginPageCommand}"/>
 				<Button FontSize="10" Content="Register" Margin="5" Command="{Binding RegisterPageCommand}"/>
 			</StackPanel>
