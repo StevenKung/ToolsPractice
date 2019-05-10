@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Ioc;
 
 namespace LogIn
 {
@@ -27,8 +28,8 @@ namespace LogIn
 
 		object m_CurrentPage { get; set; }
 		public object CurrentPage => m_CurrentPage;
-		private object LoginPage = new UserControlLogin();
-		private object RegisterPage = new UserControlRegister();
+		private object LoginPage = SimpleIoc.Default.GetInstance<LoginViewModel>();
+		private object RegisterPage = SimpleIoc.Default.GetInstance<RegisterViewModel>();
 		public MainViewModel()
 		{
 			m_CurrentPage = LoginPage;

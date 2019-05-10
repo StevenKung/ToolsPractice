@@ -5,11 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LogIn"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="300">
-
-	<Window.DataContext>
-		<local:MainViewModel/>
-	</Window.DataContext>
+        Title="MainWindow" Height="350" Width="300"
+		DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
+	<Window.Resources>
+		<DataTemplate DataType="{x:Type local:LoginViewModel}">
+			<local:UserControlLogin/>
+		</DataTemplate>
+		<DataTemplate DataType="{x:Type local:RegisterViewModel}">
+			<local:UserControlRegister/>
+		</DataTemplate>
+	</Window.Resources>
 	
 	<Grid VerticalAlignment="Top">
 		<StackPanel>

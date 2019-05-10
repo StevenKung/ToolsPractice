@@ -5,10 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:LogIn"
              mc:Ignorable="d" 
-             d:DesignHeight="250" d:DesignWidth="300" Background="GhostWhite">
-	<UserControl.DataContext>
-		<local:LoginViewModel/>
-	</UserControl.DataContext>
+             d:DesignHeight="250" d:DesignWidth="300" Background="GhostWhite"
+			 DataContext="{Binding Source={StaticResource Locator}, Path=LoginVM}">
 	<UserControl.Resources>
 		<local:UserData x:Key="LoginUser"/>
 	</UserControl.Resources>
