@@ -18,10 +18,13 @@
 	<Grid VerticalAlignment="Top">
 		<StackPanel>
 			<StackPanel Orientation ="Horizontal" HorizontalAlignment="Right">
-				<Button FontSize="10" Content="Logout" Margin="5,5,100,5" Command="{Binding LogoutCommand}"/>
-				<Label FontSize="10" Margin="5" Content="{Binding Source={StaticResource LoginPage}, Path=DataContext.CurrentUser}"/>
+				<Button FontSize="10" Content="Logout" Margin="5,5,100,5" 
+						Command="{Binding LogoutCommand}" CommandParameter="{Binding Source={StaticResource LoginPage}, Path=DataContext}"/>
+				<Label FontSize="10" Margin="5" 
+					   Content="{Binding Source={StaticResource LoginPage}, Path=DataContext.CurrentUser}"/>
 				<Button FontSize="10" Content="Login" Margin="5" Click="Login_Click"/>
-				<Button FontSize="10" Content="Register" Margin="5" Click="Register_Click"/>
+				<Button FontSize="10" Content="Register" Margin="5" Click="Register_Click"
+						IsEnabled="{Binding Source={StaticResource LoginPage}, Path=DataContext.CurrentUser, Converter={local:UserDataToBoolConverter}}"/>
 			</StackPanel>
 			<ContentControl x:Name="Presenter" Content="{StaticResource LoginPage}"/>
 		</StackPanel>

@@ -24,14 +24,13 @@ namespace LogIn
 			}
 		}
 
-		public ICommand LogoutCommand { get; set; }
+		public RelayCommand<LoginViewModel> LogoutCommand { get; set; }
 
 
 	
 		public MainViewModel()
 		{
-		
-
+			LogoutCommand = new RelayCommand<LoginViewModel>(vm => vm.Logout());
 		}
 	}
 }
