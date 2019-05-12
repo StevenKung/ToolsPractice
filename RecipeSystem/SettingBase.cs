@@ -44,6 +44,12 @@ namespace RecipeSystem
 			}
 		}
 
+		public virtual void Load()
+		{
+			Load(fileName);
+		}
+
+
 		public virtual void Load(string filename)
 		{
 			fileName = filename;

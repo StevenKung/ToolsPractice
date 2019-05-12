@@ -10,79 +10,54 @@
 	<Window.DataContext>
 		<local:FileSystemViewModel/>
 	</Window.DataContext>
+	
 	<Window.Resources>
-		<Style TargetType="{x:Type TabItem}">
-			<Setter Property="Template">
-				<Setter.Value>
-					<ControlTemplate TargetType="{x:Type TabItem}">
-						<Border Name="Border" BorderThickness="1,1,1,0" BorderBrush="Gainsboro" CornerRadius="4,4,0,0" Margin="2,0">
-							<ContentPresenter x:Name="ContentSite"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        ContentSource="Header"
-                                        Margin="10,2"/>
-						</Border>
-						<ControlTemplate.Triggers>
-							<Trigger Property="IsSelected" Value="True">
-								<Setter TargetName="Border" Property="Background" Value="LightSkyBlue" />
-							</Trigger>
-							<Trigger Property="IsSelected" Value="False">
-								<Setter TargetName="Border" Property="Background" Value="GhostWhite" />
-							</Trigger>
-						</ControlTemplate.Triggers>
-					</ControlTemplate>
-				</Setter.Value>
-			</Setter>
-		</Style>
-
-		<Style TargetType="{x:Type DataGridCell}">
-			<Style.Triggers>
-				<Trigger Property="IsSelected"  Value="True">
-					<Setter Property="Background" Value="DarkSlateBlue"/>
-				</Trigger>
-			</Style.Triggers>
-		</Style>
-		<Style TargetType="{x:Type DataGridRow}">
-			<Style.Triggers>
-				<Trigger Property="AlternationIndex" Value="1">
-					<Setter Property="Background" Value="Gainsboro"/>
-				</Trigger>
-				<!--override trigger by sequence-->
-				<Trigger Property="IsMouseOver" Value="True">
-					<Setter Property="Foreground" Value="Cyan"/>
-				</Trigger>
-			</Style.Triggers>
-		</Style>
-		
-		
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="DataGridStyle.xaml"/>
+				<ResourceDictionary Source="TabStyle.xaml"/>
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
 	</Window.Resources>
 	
 	<Grid>
 		<TabControl Margin="10" BorderBrush="Gainsboro">
-			<TabItem Header="Current">
+			
+			<TabItem Header="General">
 				<StackPanel>
 					<toolkit:PropertyGrid local:PropertyGridHelper.IsReadOnly="{Binding ElementName=ReadOnlyCheckBox, Path=IsChecked}"
-						SelectedObject="{Binding CurrentFile}"/>
+						SelectedObject="{Binding CurrentPackage.Recipe}"/>
 					<CheckBox Content="IsReadOnly" x:Name="ReadOnlyCheckBox" IsChecked="True"/>
-
+					<TextBlock Text="{Binding CurrentPackage.PackageName}"/>
 				</StackPanel>
 			</TabItem>
-			
+
+			<TabItem Header="Process">
+				<StackPanel>
+					<toolkit:PropertyGrid local:PropertyGridHelper.IsReadOnly="{Binding ElementName=ReadOnlyCheckBox, Path=IsChecked}"
+						SelectedObject="{Binding CurrentPackage.Process}"/>
+				</StackPanel>
+			</TabItem>
+
+
 			<TabItem Header="System">
 				<DockPanel>
-					<DataGrid DockPanel.Dock="Left" x:Name="FilesGrid" local:DataGridHeaderHelper.ItemType="{x:Type local:SettingFileBase}" CanUserAddRows="False"
-							  ItemsSource="{Binding Records}" IsSynchronizedWithCurrentItem="True"  SelectedItem="{Binding SelectedFile, Mode=OneWayToSource}"
-							  AlternationCount="2"/>
+					<DataGrid  DockPanel.Dock="Left" x:Name="FileGrid"  CanUserAddRows="False" AutoGenerateColumns="False" FontSize="20"
+							  ItemsSource="{Binding Records}" 
+							  AlternationCount="2">
+						<DataGrid.Columns>
+							<DataGridTextColumn Header="FileName" Binding="{Binding Name}"/>
+							<DataGridTextColumn Header="CrateTime" Binding="{Binding CreationTime}"/>
+							<DataGridTextColumn Header="LastWriteTime" Binding="{Binding LastWriteTime}"/>
+						</DataGrid.Columns>
+					</DataGrid>
 
-					<toolkit:PropertyGrid DockPanel.Dock="Right" local:PropertyGridHelper.IsReadOnly="{Binding ElementName=ReadOnlyCheckBox, Path=IsChecked}"
-										  SelectedObject="{Binding ElementName=FilesGrid, Path=SelectedItem}"/>
-					
-					<StackPanel VerticalAlignment="Center">
+					<StackPanel  DockPanel.Dock="Right">
 						<Button Content="Refresh" Command="{Binding RefreshCommand}"/>
-						<Button Content="Load" Command="{Binding LoadCommand}"/>
+						<Button Content="Load" Command="{Binding LoadCommand}" CommandParameter="{Binding ElementName=FileGrid, Path=SelectedItem}"/>
 						<Button Content="Save Current" Command="{Binding SaveCommand}"/>
 						<Button Content="Save As" Command="{Binding SaveAsCommand}"/>
-						<Button Content="Delete" Command="{Binding DeleteCommand}"/>
+						<Button Content="Delete" Command="{Binding DeleteCommand}" CommandParameter="{Binding ElementName=FileGrid, Path=SelectedItem}"/>
 					</StackPanel>
 				</DockPanel>
 

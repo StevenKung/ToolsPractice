@@ -27,72 +27,63 @@ namespace RecipeSystem
 
 		#region Binding Property
 
-		public SettingFileBase CurrentFile { get; set; }
-		public SettingFileBase SelectedFile { get; set; }
-		public ObservableCollection<SettingFileBase> Records { get; set; } = new ObservableCollection<SettingFileBase>();
+		public Package CurrentPackage { get; set; } = new Package();
+		public ObservableCollection<FileSystemInfo> Records { get; set; } = new ObservableCollection<FileSystemInfo>();
 
 		public ICommand RefreshCommand { get; set; }
-		public ICommand LoadCommand { get; set; }
+		public RelayCommand<FileInfo> LoadCommand { get; set; }
 		public ICommand SaveCommand { get; set; }
 		public ICommand SaveAsCommand { get; set; }
-		public ICommand DeleteCommand { get; set; }
+		public RelayCommand<FileInfo> DeleteCommand { get; set; }
 
 		#endregion
 
 		public FileSystemViewModel()
 		{
-
-			Directory.CreateDirectory(SettingFileBase.Folder);
-			string cur = Path.Combine(SettingFileBase.Folder, "Current.txt");
-			if (!File.Exists(cur))
-				File.WriteAllLines(cur, new string[] { "default.xml" });
-			
-			CurrentFile = new RecipeSetting(File.ReadAllLines(cur).First());
 			
 			RefreshFiles();
 			RefreshCommand = new RelayCommand(RefreshFiles);
-			LoadCommand = new RelayCommand(LoadSelected,()=>SelectedFile!=null);
+			LoadCommand = new RelayCommand<FileInfo>(LoadSelected);
 			SaveCommand = new RelayCommand(Save);
 			SaveAsCommand = new RelayCommand(SaveAs);
-			DeleteCommand = new RelayCommand(DeleteFile,()=>SelectedFile!=null);
+			DeleteCommand = new RelayCommand<FileInfo>(DeleteFile);
 		}
 
 		~FileSystemViewModel()
 		{
-			CurrentFile.Save();
-			File.WriteAllLines(Path.Combine(SettingFileBase.Folder, "Current.txt"), new string[] { CurrentFile.FileName });
+		
 		}
 
 
 		private void RefreshFiles()
 		{
 			Records.Clear();
-			string[] files = Directory.GetFiles(SettingFileBase.Folder, "*.xml");
+			string[] files = Directory.GetFiles(SettingFileBase.Folder, "*.zip");
 			foreach (var f in files)
 			{
-				Records.Add(new RecipeSetting(Path.GetFileName(f)));
+				Records.Add(new FileInfo(f));
 			}
 		}
 
-		private void LoadSelected()
+		private void LoadSelected(FileInfo file)
 		{
 			var result = Xceed.Wpf.Toolkit.MessageBox.Show("Save Current file?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
 			if (result == MessageBoxResult.Yes)
-				CurrentFile.Save();
+				CurrentPackage.Save();
 
-			CurrentFile.Load(SelectedFile.FileName);
+			CurrentPackage.Load(Path.GetFileNameWithoutExtension(file.FullName));
 			RefreshFiles();
 		}
 
 		private void Save()
 		{
-			CurrentFile.Save();
+			CurrentPackage.Save();
 			RefreshFiles();
 		}
 
 		private void SaveAs()
 		{
-			var text = new TextBox { Text = CurrentFile.FileName, FontSize=20 };
+			var text = new TextBox { Text = CurrentPackage.PackageName, FontSize=20 };
 			var msbox = new Xceed.Wpf.Toolkit.MessageBox
 			{
 				OkButtonContent = text,
@@ -100,13 +91,13 @@ namespace RecipeSystem
 				WindowOpacity = 0.8
 			};
 			msbox.ShowDialog();
-			CurrentFile.SaveAs(text.Text);
+			CurrentPackage.Save(text.Text);
 			RefreshFiles();
 		}
 
-		private void DeleteFile()
+		private void DeleteFile(FileInfo file)
 		{
-			File.Delete(Path.Combine(SettingFileBase.Folder, SelectedFile.FileName));
+			File.Delete(Path.Combine(SettingFileBase.Folder, file.Name));
 			RefreshFiles();
 		}
 	}

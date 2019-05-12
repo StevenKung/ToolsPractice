@@ -1,0 +1,23 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:RecipeSystem">
+	
+	<Style TargetType="{x:Type DataGridCell}">
+		<Style.Triggers>
+			<Trigger Property="IsSelected"  Value="True">
+				<Setter Property="Background" Value="DarkSlateBlue"/>
+			</Trigger>
+		</Style.Triggers>
+	</Style>
+	<Style TargetType="{x:Type DataGridRow}">
+		<Style.Triggers>
+			<Trigger Property="AlternationIndex" Value="1">
+				<Setter Property="Background" Value="Gainsboro"/>
+			</Trigger>
+			<!--override trigger by sequence-->
+			<Trigger Property="IsMouseOver" Value="True">
+				<Setter Property="Foreground" Value="Cyan"/>
+			</Trigger>
+		</Style.Triggers>
+	</Style>
+</ResourceDictionary>

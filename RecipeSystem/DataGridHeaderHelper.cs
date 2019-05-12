@@ -35,7 +35,8 @@ namespace RecipeSystem
 		static void dataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
 		{
 			var type = GetItemType(sender as DataGrid);
-			var displayAttribute = type.GetProperty(e.PropertyName).GetCustomAttributes(typeof(DisplayNameAttribute), false).FirstOrDefault() as DisplayNameAttribute;
+			var att = type.GetProperty(e.PropertyName).GetCustomAttributes(typeof(DisplayNameAttribute), false);
+			var displayAttribute = att.FirstOrDefault() as DisplayNameAttribute;
 			if (displayAttribute != null)
 				e.Column.Header = displayAttribute.DisplayName;
 		}
